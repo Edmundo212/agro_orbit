@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AgroOrbit – {% block titulo %}{% endblock %}</title>
+  <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+<header>
+  <span class="logo">🛰️ AgroOrbit</span>
+  <nav>
+    <a href="/" class="{{ 'on' if pagina=='inicio' }}">Inicio</a>
+    <a href="/nasa" class="{{ 'on' if pagina=='nasa' }}">NASA</a>
+    <a href="/rotaciones" class="{{ 'on' if pagina=='rotaciones' }}">Rotaciones</a>
+    <a href="/iot" class="{{ 'on' if pagina=='iot' }}">IoT</a>
+    <a href="/parcelas" class="{{ 'on' if pagina=='parcelas' }}">Parcelas</a>
+  </nav>
+  <span class="badge">BD: {{ modo }}</span>
+</header>
+<main>{% block contenido %}{% endblock %}</main>
+<script src="/static/js/main.js"></script>
+{% block scripts %}{% endblock %}
+</body>
+</html>

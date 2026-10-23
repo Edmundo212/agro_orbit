@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block titulo %}Inicio{% endblock %}
+{% block contenido %}
+<h1>Panel principal</h1>
+<p class="sub">Agricultura inteligente con datos satelitales NASA, sensores IoT y rotación de cultivos.</p>
+<div class="grid">
+  <div class="card"><div class="k">Parcelas registradas</div><div class="v">{{ n_parcelas }}</div></div>
+  <div class="card"><div class="k">Lecturas IoT</div><div class="v">{{ n_lecturas }}</div></div>
+  <div class="card"><div class="k">Base de datos</div><div class="v" style="font-size:1.2rem">{{ modo }}</div></div>
+</div>
+<div class="grid">
+  <a class="card" href="/nasa" style="color:inherit;text-decoration:none"><b>🛰️ Datos NASA</b><p class="small">Humedad, lluvia, temperatura y NDVI.</p></a>
+  <a class="card" href="/rotaciones" style="color:inherit;text-decoration:none"><b>🔄 Rotaciones</b><p class="small">Escenarios de siembra optimizados.</p></a>
+  <a class="card" href="/iot" style="color:inherit;text-decoration:none"><b>📡 Sensores IoT</b><p class="small">Lecturas en tiempo real.</p></a>
+  <a class="card" href="/parcelas" style="color:inherit;text-decoration:none"><b>🌱 Parcelas</b><p class="small">Gestiona tus terrenos.</p></a>
+</div>
+{% endblock %}

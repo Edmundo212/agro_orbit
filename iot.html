@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block titulo %}IoT{% endblock %}
+{% block contenido %}
+<h1>Sensores IoT</h1>
+<p class="sub">Tus dispositivos envían datos con <code>POST /api/iot/lectura</code>. Abajo puedes simular uno.</p>
+<div class="row">
+  <label>Dispositivo<input id="disp" value="sensor-01"></label>
+  <label>Humedad (%)<input id="hum" type="number" value="45"></label>
+  <label>Temp (°C)<input id="tmp" type="number" value="18"></label>
+  <label>pH<input id="ph" type="number" step="0.1" value="6.5"></label>
+  <button onclick="enviar()">Enviar lectura</button>
+</div>
+<div class="card"><table>
+  <thead><tr><th>Fecha</th><th>Dispositivo</th><th>Humedad</th><th>Temp</th><th>pH</th></tr></thead>
+  <tbody id="filas"></tbody></table></div>
+{% endblock %}
+{% block scripts %}
+<script>
+async function cargar() {
+  const d = await getJSON("/api/iot/lecturas");
+  document.getElementById("filas").innerHTML = d.map(l => `<tr>
+    <td>${fmtFecha(l.created_at)}</td><td>${l.dispositivo}</td>
+    <td>${l.humedad_suelo ?? "-"}</td><td>${l.temperatura ?? "-"}</td><td>${l.ph ?? "-"}</td></tr>`).join("")
+    || `<tr><td colspan="5" class="small">Sin lecturas todavía.</td></tr>`;
+}
+async function enviar() {
+  await postJSON("/api/iot/lectura", {dispositivo: disp.value, humedad_suelo: +hum.value,
+    temperatura: +tmp.value, ph: +ph.value});
+  cargar();
+}
+cargar(); setInterval(cargar, 5000);
+</script>
+{% endblock %}
